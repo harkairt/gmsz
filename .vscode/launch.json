@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Chrome (dev)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3332",
+      "preLaunchTask": "start dev server",
+      "runtimeArgs": [
+        "--remote-debugging-port=9222"
+      ]
+    }
+  ]
+}
