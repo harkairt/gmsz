@@ -1,0 +1,1 @@
+At the end of a work iteration it is not needed to do `npm run dev` for me, only do so if you are debugging some build error.

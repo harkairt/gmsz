@@ -8,32 +8,36 @@ export default {
     extend: {
       colors: {
         primary: {
-          purple: '#8B5CF6',
-          blue: '#3B82F6',
+          purple: '#7C3AED',
+          blue: '#2563EB',
         },
         secondary: {
-          pink: '#EC4899',
-          orange: '#F97316',
+          pink: '#DB2777',
+          orange: '#EA580C',
         },
         background: {
-          dark: '#0F172A',
-          darker: '#020617',
+          light: '#FAFBFC',
+          muted: '#F1F5F9',
         },
         accent: {
-          cyan: '#06B6D4',
+          cyan: '#0891B2',
         },
         text: {
-          primary: '#FFFFFF',
-          secondary: '#94A3B8',
+          primary: '#1E293B',
+          secondary: '#64748B',
+        },
+        border: {
+          DEFAULT: '#E2E8F0',
+          subtle: '#CBD5E1',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
-        'gradient-primary': 'linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%)',
-        'gradient-secondary': 'linear-gradient(135deg, #EC4899 0%, #F97316 100%)',
-        'gradient-dark': 'linear-gradient(180deg, #0F172A 0%, #020617 100%)',
+        'gradient-primary': 'linear-gradient(135deg, #7C3AED 0%, #2563EB 100%)',
+        'gradient-secondary': 'linear-gradient(135deg, #DB2777 0%, #EA580C 100%)',
+        'gradient-light': 'linear-gradient(180deg, #FAFBFC 0%, #F1F5F9 100%)',
       },
     },
   },

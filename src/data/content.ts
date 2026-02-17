@@ -12,28 +12,28 @@ export interface PlanningStep {
 export const alapfogalmak: Definition[] = [
   {
     term: "Entitás",
-    definition: "Logikailag összetartozó adatok halmaza",
-    details: "Bármi, amiről gondolkodunk. Az entitás lehet fizikai (ember, termék) vagy absztrakt (projekt, sprint).",
+    definition: "Bármi, amiről gondolkodsz",
+    details: "Ember, tárgy, projekt, ötlet – mindegy. Ha tudsz róla beszélni, az entitás. Bontható kisebbre, része valami nagyobbnak.",
   },
   {
     term: "Attribútum",
-    definition: "Valami valamilyen",
-    details: "Az entitás tulajdonságai, amelyek leírják annak állapotát. Például egy Story attribútumai: prioritás, becslés, státusz.",
+    definition: "Az entitás jellemzője",
+    details: "Szín, méret, állapot, prioritás – bármi, ami leírja az entitást. A változás kulcsa: tudd, melyik attribútumra figyelsz.",
   },
   {
     term: "Aktivitás",
-    definition: "Két entitás interakciójában aktivitás jön létre",
-    details: "Az aktivitás mindig két entitás kölcsönhatásából származik. A fejlesztő és a kód interakciója aktivitást eredményez.",
+    definition: "Két entitás találkozásából születik",
+    details: "Egyedül semmi nem történik. Kell két szereplő: ember + eszköz, gondolat + tett, te + a feladat.",
   },
   {
     term: "Relevancia",
-    definition: "Két entitás releváns, ha az egyik képes megváltoztatni a másik attribútumát",
-    details: "A releváns kapcsolatok feltérképezése kulcsfontosságú a tervezésben és a kockázatelemzésben.",
+    definition: "Hatással van rá, vagy nincs",
+    details: "Ha A nem képes változtatni B-n, akkor nem relevánsak egymásnak. Szűrd ki a zajt – csak a lényeges kapcsolatokkal foglalkozz.",
   },
   {
     term: "Cél",
-    definition: "Egy entitás attribútumának kívánt értéke",
-    details: "A célnak 2R-nek kell lennie: Reális (elérhető) és Releváns (kapcsolódik a fő célhoz).",
+    definition: "Hova akarod eljuttatni az attribútumot",
+    details: "Nem vágy, hanem konkrétum: melyik entitás, melyik jellemzője, milyen új értékre. A jó cél: 2R – Reális és Releváns.",
   },
 ];
 

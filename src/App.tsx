@@ -9,7 +9,7 @@ import Kockazat from './pages/Kockazat';
 function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-gradient-dark">
+      <div className="min-h-screen bg-gradient-light">
         <Header />
         <main className="flex-1">
           <AnimatePresence mode="wait">

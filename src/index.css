@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: dark;
-  color: #FFFFFF;
-  background-color: #0F172A;
+  color-scheme: light;
+  color: #1E293B;
+  background-color: #FAFBFC;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -27,7 +27,7 @@ html {
 
 body {
   min-height: 100vh;
-  background: linear-gradient(180deg, #0F172A 0%, #020617 100%);
+  background: linear-gradient(180deg, #FAFBFC 0%, #F1F5F9 100%);
 }
 
 #root {
@@ -45,12 +45,12 @@ body {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-secondary-pink to-secondary-orange;
   }
 
-  .card-glow {
-    box-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
+  .card-shadow {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(124, 58, 237, 0.06);
   }
 
-  .card-glow-hover:hover {
-    box-shadow: 0 0 60px rgba(139, 92, 246, 0.25);
+  .card-shadow-hover:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(124, 58, 237, 0.12);
   }
 }
 
@@ -60,14 +60,14 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1E293B;
+  background: #F1F5F9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #475569;
+  background: #CBD5E1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748B;
+  background: #94A3B8;
 }
