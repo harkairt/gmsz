@@ -35,6 +35,11 @@ export const alapfogalmak: Definition[] = [
     definition: "Hova akarod eljuttatni az attribútumot",
     details: "Nem vágy, hanem konkrétum: melyik entitás, melyik jellemzője, milyen új értékre. A jó cél: 2R – Reális és Releváns.",
   },
+  {
+    term: "Feladat",
+    definition: "Cél elérése érdekében végzett aktivitás",
+    details: "A feladat az aktivitások láncolata, ahol minden lépés közelebb visz a célhoz. Entitástól entitásig, amíg el nem éred a kívánt állapotot.",
+  },
 ];
 
 export const sprintTervezes: PlanningStep[] = [
@@ -48,14 +53,14 @@ export const sprintTervezes: PlanningStep[] = [
   },
   {
     step: "Elemzés",
-    description: "ROI elemzés, implementációs variánsok vizsgálata, trade-off-ok mérlegelése.",
+    description: "Churn ratio vizsgálata, Product vision alignment.",
   },
   {
     step: "Minőségbiztosítás",
-    description: "Product Owner konszenzus elérése, prioritások validálása.",
+    description: "Product Owner konszenzus elérése tennivalókról, prioritási sorrendről",
   },
   {
-    step: "Tevékenységek",
+    step: "Tevékenységek meghatározása",
     description: "Refinement, design review, feasibility check, kapacitástervezés.",
   },
   {
@@ -74,20 +79,40 @@ export const sprintTervezes: PlanningStep[] = [
 
 export const storyTervezes: PlanningStep[] = [
   {
-    step: "User Voice",
-    description: "A felhasználó szemszögéből fogalmazzuk meg: 'Mint [szerep], szeretném [cél], hogy [érték].'",
+    step: "Célmeghatározás",
+    description: "User voice – a felhasználó szemszögéből fogalmazzuk meg a story célját.",
   },
   {
-    step: "Churn Rate elemzés",
-    description: "Mekkora a lemorzsolódás, ha nem oldjuk meg? Mi a költsége a nem-cselekvésnek?",
+    step: "Adatgyűjtés & Elemzés",
+    description: "Implementációs variánsok felderítése => trade-off-ok mérlegelése.",
   },
   {
-    step: "Subtask életciklus",
-    description: "Feladatok lebontása, függőségek feltérképezése, párhuzamosítási lehetőségek.",
+    step: "Minőségbiztosítás",
+    description: "A PO egyeztet a fejlesztőkkel.",
   },
   {
-    step: "Acceptance Criteria",
-    description: "Definition of Done kritériumok: mikor tekintjük késznek a story-t?",
+    step: "Tevékenységek meghatározása",
+    description: "Subtask-ok definiálása, illetve azok életciklusának meghatározása.",
+  },
+  {
+    step: "Erőforrások elosztása",
+    description: "Feladatok kiosztása (assign) a csapattagok között.",
+  },
+  {
+    step: "Controlling & Monitoring",
+    description: "Daily standup status report, JIRA board naprakészen tartása.",
+  },
+  {
+    step: "Minőségbiztosítás (jóváhagyás)",
+    description: "Scrum team approval – a csapat jóváhagyja, hogy készen áll a fejlesztésre.",
+  },
+  {
+    step: "Célpontosítás",
+    description: "Acceptance criteria meghatározása → Definition of Done.",
+  },
+  {
+    step: "Véglegesítés",
+    description: "A story átkerül 'Ready for development' státuszba.",
   },
 ];
 
@@ -110,11 +135,4 @@ export const kockazatKezeles = {
 export const homeContent = {
   title: "Gondolkodás módszertana",
   subtitle: "A SCRUM és szoftverfejlesztés kontextusában",
-  author: "Drégelyi Zoltán könyve alapján",
-  presenter: {
-    name: "[NÉV]",
-    profession: "[SZAKMA]",
-    role: "[MUNKAKÖR]",
-  },
-  intro: "Ez a prezentáció a gondolkodás módszertanának gyakorlati alkalmazását mutatja be a szoftverfejlesztés és agilis projektmenedzsment területén.",
 };

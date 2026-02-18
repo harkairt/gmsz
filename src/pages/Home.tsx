@@ -19,11 +19,31 @@ export default function Home() {
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-blue/10 rounded-full blur-3xl" />
           </motion.div>
 
+          {/* Name card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div className="inline-flex flex-col items-center gap-1 px-8 py-5 rounded-lg bg-white border border-border card-shadow">
+              <span className="text-2xl md:text-3xl font-bold tracking-tight">
+                <span className="text-gray-300">Har</span>
+                <span className="gradient-text text-3xl md:text-4xl">Kai</span>
+                <span className="inline-block w-[0.04em]" />
+                <span className="gradient-text text-3xl md:text-4xl">ró</span>
+                <span className="text-gray-300">bert Tamás</span>
+              </span>
+              <span className="text-sm text-text-secondary">
+                programtervező informatikus
+              </span>
+            </div>
+          </motion.div>
+
           {/* Title */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
             className="text-5xl md:text-7xl font-extrabold tracking-tight"
           >
             <span className="gradient-text">{homeContent.title}</span>
@@ -33,54 +53,17 @@ export default function Home() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
             className="text-xl md:text-2xl text-text-secondary"
           >
             {homeContent.subtitle}
-          </motion.p>
-
-          {/* Author */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="text-sm text-text-secondary/70"
-          >
-            {homeContent.author}
-          </motion.p>
-
-          {/* Presenter info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="pt-8 border-t border-border"
-          >
-            <div className="inline-flex flex-col items-center gap-2 px-8 py-4 rounded-lg bg-white border border-border card-shadow">
-              <span className="text-lg font-semibold text-text-primary">
-                {homeContent.presenter.name}
-              </span>
-              <span className="text-sm text-text-secondary">
-                {homeContent.presenter.profession} • {homeContent.presenter.role}
-              </span>
-            </div>
-          </motion.div>
-
-          {/* Intro text */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1 }}
-            className="max-w-2xl mx-auto text-text-secondary leading-relaxed"
-          >
-            {homeContent.intro}
           </motion.p>
 
           {/* CTA Button */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
           >
             <Link to="/alapfogalmak">
               <motion.button

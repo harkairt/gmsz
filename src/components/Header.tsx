@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 const navItems = [
   { path: '/', label: 'Bevezető' },
   { path: '/alapfogalmak', label: 'Alapfogalmak' },
+  { path: '/eroforrasok', label: 'Erőforrások' },
   { path: '/tervezes', label: 'Tervezés' },
   { path: '/kockazat', label: 'Kockázat' },
 ];

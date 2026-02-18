@@ -1,10 +1,37 @@
+import { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
 import ExpandableCard from '../components/ExpandableCard';
 import CollapsibleSection from '../components/CollapsibleSection';
+import EntitasVisualization, { type SceneStage } from '../components/EntitasVisualization';
 import { alapfogalmak } from '../data/content';
 
+// Map alapfogalmak terms to scene stages
+const termToStage: Record<string, SceneStage> = {
+  'Entitás': 'entitas',
+  'Attribútum': 'attributum',
+  'Aktivitás': 'aktivitas',
+  'Relevancia': 'relevancia',
+  'Cél': 'cel',
+  'Feladat': 'feladat',
+};
+
 export default function Alapfogalmak() {
+  const [stage, setStage] = useState<SceneStage>('empty');
+  const [unlockedIndex, setUnlockedIndex] = useState(0);
+
+  // Handle card activation
+  const handleCardActivate = useCallback((term: string, index: number) => {
+    const newStage = termToStage[term];
+    if (newStage) {
+      setStage(newStage);
+    }
+    // Unlock the next card
+    if (index >= unlockedIndex) {
+      setUnlockedIndex(index + 1);
+    }
+  }, [unlockedIndex]);
+
   return (
     <PageTransition>
       <div className="max-w-6xl mx-auto px-4 py-16">
@@ -24,51 +51,40 @@ export default function Alapfogalmak() {
           </p>
         </motion.div>
 
-        {/* Concept visual - always visible */}
+        {/* 3D Visualization - replaces the static "Az alapképlet" box */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="mb-16 p-8 rounded-lg bg-gradient-to-br from-primary-purple/10 to-primary-blue/10 border border-border"
+          className="mb-16"
         >
-          <div className="text-center space-y-4">
+          <div className="text-center mb-4">
             <h2 className="text-2xl font-semibold text-text-primary">
               Az alapképlet
             </h2>
-            <div className="flex items-center justify-center gap-4 flex-wrap text-lg">
-              <span className="px-4 py-2 rounded-md bg-primary-purple/15 text-primary-purple font-medium">
-                Entitás
-              </span>
-              <span className="text-text-secondary">+</span>
-              <span className="px-4 py-2 rounded-md bg-primary-blue/15 text-primary-blue font-medium">
-                Attribútum
-              </span>
-              <span className="text-text-secondary">→</span>
-              <span className="px-4 py-2 rounded-md bg-accent-cyan/15 text-accent-cyan font-medium">
-                Aktivitás
-              </span>
-              <span className="text-text-secondary">→</span>
-              <span className="px-4 py-2 rounded-md bg-secondary-pink/15 text-secondary-pink font-medium">
-                Cél
-              </span>
-            </div>
+            <p className="text-text-secondary text-sm mt-1">
+              Kattints a fogalmakra a vizualizáció aktiválásához
+            </p>
           </div>
+          <EntitasVisualization stage={stage} />
         </motion.div>
 
-        {/* Definition cards - expandable, collapsed by default */}
+        {/* Definition cards - expandable with sequential unlocking */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
           className="grid gap-4 md:grid-cols-2 lg:grid-cols-3"
         >
-          {alapfogalmak.map((item) => (
+          {alapfogalmak.map((item, index) => (
             <ExpandableCard
               key={item.term}
               term={item.term}
               definition={item.definition}
               details={item.details}
               defaultOpen={false}
+              disabled={index > unlockedIndex}
+              onActivate={() => handleCardActivate(item.term, index)}
             />
           ))}
         </motion.div>

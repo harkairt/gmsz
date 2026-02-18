@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Alapfogalmak from './pages/Alapfogalmak';
 import Tervezes from './pages/Tervezes';
 import Kockazat from './pages/Kockazat';
+import Eroforrasok from './pages/Eroforrasok';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/alapfogalmak" element={<Alapfogalmak />} />
+              <Route path="/eroforrasok" element={<Eroforrasok />} />
               <Route path="/tervezes" element={<Tervezes />} />
               <Route path="/kockazat" element={<Kockazat />} />
             </Routes>
