@@ -9,7 +9,7 @@ import Eroforrasok from './pages/Eroforrasok';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/gmsz">
       <div className="min-h-screen bg-gradient-light">
         <Header />
         <main className="flex-1">
