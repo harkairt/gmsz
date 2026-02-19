@@ -11,8 +11,8 @@ export default function Tervezes() {
   const [activeTab, setActiveTab] = useState<TabType>('sprint');
 
   const tabs = [
-    { id: 'sprint' as const, label: 'Sprint tervezés', data: sprintTervezes },
-    { id: 'story' as const, label: 'Story tervezés', data: storyTervezes },
+    { id: 'sprint' as const, label: 'Sprint', data: sprintTervezes },
+    { id: 'story' as const, label: 'User Story', data: storyTervezes },
   ];
 
   const currentData = activeTab === 'sprint' ? sprintTervezes : storyTervezes;
@@ -30,10 +30,6 @@ export default function Tervezes() {
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="gradient-text">Tervezés</span>
           </h1>
-          <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            A módszertani gondolkodás alkalmazása a Sprint és Story szintű
-            tervezésben.
-          </p>
         </motion.div>
 
         {/* Tab switcher */}

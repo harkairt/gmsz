@@ -4,11 +4,11 @@ import PageTransition from '../components/PageTransition';
 
 // Resource node data
 const resources = {
-  T: { emoji: '🧠', label: 'Tudás', sublabel: 'Knowledge' },
-  I: { emoji: '📜', label: 'Információ', sublabel: 'Information' },
-  E: { emoji: '🛠️', label: 'Eszköz', sublabel: 'Tools' },
-  H: { emoji: '⏳', label: 'Emberi idő', sublabel: 'Human time' },
-  P: { emoji: '💰', label: 'Pénz', sublabel: 'Money' },
+  T: { emoji: '🧠', label: 'Tudás', },
+  I: { emoji: '📜', label: 'Információ', },
+  E: { emoji: '🛠️', label: 'Eszköz', },
+  H: { emoji: '⏳', label: 'Emberi idő', },
+  P: { emoji: '💰', label: 'Pénz', },
 };
 
 // Animation timing constants (in seconds)
@@ -25,12 +25,11 @@ const TIMING = {
 interface ResourceNodeProps {
   emoji: string;
   label: string;
-  sublabel: string;
   delay: number;
   className?: string;
 }
 
-function ResourceNode({ emoji, label, sublabel, delay, className = '' }: ResourceNodeProps) {
+function ResourceNode({ emoji, label, delay, className = '' }: ResourceNodeProps) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0 }}
@@ -59,7 +58,6 @@ function ResourceNode({ emoji, label, sublabel, delay, className = '' }: Resourc
         className="mt-3 text-center"
       >
         <div className="font-semibold text-text-primary">{label}</div>
-        <div className="text-sm text-text-secondary">{sublabel}</div>
       </motion.div>
     </motion.div>
   );
@@ -122,10 +120,6 @@ export default function Eroforrasok() {
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="gradient-text">Erőforrások</span>
           </h1>
-          <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            Hogyan áramlik össze a tudás, információ és eszközök az emberi időn
-            keresztül értékké.
-          </p>
         </motion.div>
 
         {/* Resource flow diagram */}
@@ -200,19 +194,16 @@ export default function Eroforrasok() {
               <ResourceNode
                 emoji={resources.T.emoji}
                 label={resources.T.label}
-                sublabel={resources.T.sublabel}
                 delay={TIMING.topNodesAppear}
               />
               <ResourceNode
                 emoji={resources.I.emoji}
                 label={resources.I.label}
-                sublabel={resources.I.sublabel}
                 delay={TIMING.topNodesAppear + 0.1}
               />
               <ResourceNode
                 emoji={resources.E.emoji}
                 label={resources.E.label}
-                sublabel={resources.E.sublabel}
                 delay={TIMING.topNodesAppear + 0.2}
               />
             </div>
@@ -222,7 +213,6 @@ export default function Eroforrasok() {
               <ResourceNode
                 emoji={resources.H.emoji}
                 label={resources.H.label}
-                sublabel={resources.H.sublabel}
                 delay={TIMING.hNodeAppear}
               />
             </div>
@@ -232,7 +222,6 @@ export default function Eroforrasok() {
               <ResourceNode
                 emoji={resources.P.emoji}
                 label={resources.P.label}
-                sublabel={resources.P.sublabel}
                 delay={TIMING.pNodeAppear}
               />
             </div>
@@ -246,17 +235,6 @@ export default function Eroforrasok() {
           transition={{ delay: TIMING.pNodeAppear + 0.5, duration: 0.6 }}
           className="mt-16 text-center"
         >
-          <div className="inline-block p-8 rounded-lg bg-white border border-border card-shadow max-w-xl">
-            <h3 className="text-xl font-bold text-text-primary mb-4">
-              Az erőforrások összefolyása
-            </h3>
-            <p className="text-text-secondary">
-              A <strong>tudás</strong>, <strong>információ</strong> és{' '}
-              <strong>eszközök</strong> önmagukban csak potenciál. Az{' '}
-              <strong>emberi idő</strong> és energia befektetésével válnak valódi{' '}
-              <strong>értékké</strong> (pénzzé).
-            </p>
-          </div>
         </motion.div>
       </div>
     </PageTransition>

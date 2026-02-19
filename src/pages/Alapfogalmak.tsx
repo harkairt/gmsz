@@ -45,27 +45,14 @@ export default function Alapfogalmak() {
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="gradient-text">Alapfogalmak</span>
           </h1>
-          <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            A gondolkodás módszertanának alapvető építőkövei, amelyek segítenek
-            strukturáltan megközelíteni bármilyen problémát.
-          </p>
         </motion.div>
 
-        {/* 3D Visualization - replaces the static "Az alapképlet" box */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
           className="mb-16"
         >
-          <div className="text-center mb-4">
-            <h2 className="text-2xl font-semibold text-text-primary">
-              Az alapképlet
-            </h2>
-            <p className="text-text-secondary text-sm mt-1">
-              Kattints a fogalmakra a vizualizáció aktiválásához
-            </p>
-          </div>
           <EntitasVisualization stage={stage} />
         </motion.div>
 
