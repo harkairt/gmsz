@@ -12,14 +12,33 @@ const HIGHLIGHTED_CELLS: [number, number][] = [
   [1, 0], // K2 sor, K1 oszlop
 ];
 
+// Separate line: K3 row → K5 col  to  K5 row → K4 col
+const EXTRA_LINE_CELLS: [number, number][] = [
+  [2, 4], // K3 sor, K5 oszlop
+  [4, 3], // K5 sor, K4 oszlop
+];
+
+const ALL_HIGHLIGHTED: [number, number][] = [...HIGHLIGHTED_CELLS, ...EXTRA_LINE_CELLS];
+
 function isHighlighted(row: number, col: number) {
-  return HIGHLIGHTED_CELLS.some(([r, c]) => r === row && c === col);
+  return ALL_HIGHLIGHTED.some(([r, c]) => r === row && c === col);
 }
 
 function RiskMatrix() {
   const gridRef = useRef<HTMLDivElement>(null);
   const [lines, setLines] = useState<{ x1: number; y1: number; x2: number; y2: number }[]>([]);
   const [svgSize, setSvgSize] = useState({ w: 0, h: 0 });
+
+  const getCellCenter = useCallback((grid: HTMLElement, gridRect: DOMRect, row: number, col: number) => {
+    const cellIndex = (row + 1) * 6 + (col + 1);
+    const cell = grid.children[cellIndex] as HTMLElement | undefined;
+    if (!cell) return null;
+    const cellRect = cell.getBoundingClientRect();
+    return {
+      x: cellRect.left - gridRect.left + cellRect.width / 2,
+      y: cellRect.top - gridRect.top + cellRect.height / 2,
+    };
+  }, []);
 
   const recalc = useCallback(() => {
     const grid = gridRef.current;
@@ -28,30 +47,23 @@ function RiskMatrix() {
     const gridRect = grid.getBoundingClientRect();
     setSvgSize({ w: gridRect.width, h: gridRect.height });
 
-    // Find cell centers for highlighted cells
-    const centers = HIGHLIGHTED_CELLS.map(([row, col]) => {
-      // Grid has 6 columns (1 header + 5 data), 6 rows (1 header + 5 data)
-      // Cell index in children: skip header row (6 elements), then for each data row skip the row header
-      const cellIndex = (row + 1) * 6 + (col + 1);
-      const cell = grid.children[cellIndex] as HTMLElement | undefined;
-      if (!cell) return null;
-      const cellRect = cell.getBoundingClientRect();
-      return {
-        x: cellRect.left - gridRect.left + cellRect.width / 2,
-        y: cellRect.top - gridRect.top + cellRect.height / 2,
-      };
-    });
+    // Find cell centers for triangle cells
+    const centers = HIGHLIGHTED_CELLS.map(([r, c]) => getCellCenter(grid, gridRect, r, c));
+    // Find cell centers for extra line cells
+    const extraCenters = EXTRA_LINE_CELLS.map(([r, c]) => getCellCenter(grid, gridRect, r, c));
 
-    if (centers.some((c) => !c)) return;
+    if (centers.some((c) => !c) || extraCenters.some((c) => !c)) return;
     const pts = centers as { x: number; y: number }[];
+    const ePts = extraCenters as { x: number; y: number }[];
 
-    // Connect: 0->1, 1->2, 2->0 (triangle)
+    // Connect: 0->1, 1->2, 2->0 (triangle) + extra single line
     setLines([
       { x1: pts[0].x, y1: pts[0].y, x2: pts[1].x, y2: pts[1].y },
       { x1: pts[1].x, y1: pts[1].y, x2: pts[2].x, y2: pts[2].y },
       { x1: pts[2].x, y1: pts[2].y, x2: pts[0].x, y2: pts[0].y },
+      { x1: ePts[0].x, y1: ePts[0].y, x2: ePts[1].x, y2: ePts[1].y },
     ]);
-  }, []);
+  }, [getCellCenter]);
 
   useEffect(() => {
     recalc();
