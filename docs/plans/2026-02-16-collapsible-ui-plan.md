@@ -492,7 +492,7 @@ export default function Tervezes() {
                   </tr>
                 </thead>
                 <tbody>
-                  {['Fejlesztő', 'PO', 'Kód', 'User'].map((row, i) => (
+                  {['Fejlesztő', 'PO', 'Kód', 'Felhasználó'].map((row, i) => (
                     <tr key={row}>
                       <td className="p-2 text-xs font-medium text-accent-cyan">
                         {row}

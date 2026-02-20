@@ -7,6 +7,8 @@ import { sprintTervezes, storyTervezes } from '../data/content';
 
 type TabType = 'sprint' | 'story';
 
+const matrixEntities = ['Fejlesztő', 'PO', 'Kód', 'Felhasználó', 'Designer', 'Tesztelő', 'JIRA'];
+
 export default function Tervezes() {
   const [activeTab, setActiveTab] = useState<TabType>('sprint');
 
@@ -96,31 +98,24 @@ export default function Tervezes() {
               </p>
 
               <div className="overflow-x-auto">
-                <table className="w-full min-w-[500px]">
+                <table className="w-full min-w-[700px]">
                   <thead>
                     <tr>
                       <th className="p-3 text-left text-text-secondary"></th>
-                      <th className="p-3 text-center text-sm font-medium text-accent-cyan">
-                        Fejlesztő
-                      </th>
-                      <th className="p-3 text-center text-sm font-medium text-accent-cyan">
-                        PO
-                      </th>
-                      <th className="p-3 text-center text-sm font-medium text-accent-cyan">
-                        Kód
-                      </th>
-                      <th className="p-3 text-center text-sm font-medium text-accent-cyan">
-                        User
-                      </th>
+                      {matrixEntities.map((header) => (
+                        <th key={header} className="p-3 text-center text-sm font-medium text-accent-cyan">
+                          {header}
+                        </th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody>
-                    {['Fejlesztő', 'PO', 'Kód', 'User'].map((row, i) => (
+                    {matrixEntities.map((row, i) => (
                       <tr key={row}>
                         <td className="p-3 text-sm font-medium text-accent-cyan">
                           {row}
                         </td>
-                        {[0, 1, 2, 3].map((col) => (
+                        {matrixEntities.map((_, col) => (
                           <td key={col} className="p-3 text-center">
                             <div
                               className={`w-8 h-8 mx-auto rounded-md ${

@@ -122,12 +122,12 @@ export const kockazatKezeles = {
     "Terv elemzése - a célok és tevékenységek áttekintése",
     "Horizontális kockázatok listázása - párhuzamos folyamatok veszélyei",
     "Vertikális kockázatok listázása - függőségi lánc problémái",
-    "Iteráció a kockázatok csökkentésére - priorizálás és kezelés",
     "Költség-haszon elemzés - mibe kerül a megelőzés vs. a bekövetkezés?",
-    "Külön terv a nem integrálható kockázatokra - B terv készítése",
+    "Folyamatba illesztett kockázatkezelés - iteratív folyamat a kockázatok csökkentésére",
+    "Külön terv a nem integrálható kockázatokra - Eseti kockázatkezelési terv készítése",
   ],
   matrix: {
-    title: "Kockázatfeltáró mátrix",
+    title: "Eredő kockázatfeltáró mátrix",
     description: "Az entitások és attribútumok mátrixa segít azonosítani a potenciális kockázati pontokat.",
   },
 };
