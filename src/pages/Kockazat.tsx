@@ -1,9 +1,9 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
 import CollapsibleSection from '../components/CollapsibleSection';
 import ExpandableStep from '../components/ExpandableStep';
-import { kockazatKezeles } from '../data/content';
+import { kockazatKezeles, kockazatFelmeres } from '../data/content';
 
 const LABELS = ['K1', 'K2', 'K3', 'K4', 'K5'] as const;
 const HIGHLIGHTED_CELLS: [number, number][] = [
@@ -145,6 +145,154 @@ function RiskMatrix() {
   );
 }
 
+type ColId = 'kockazat' | 'valoszinoseg' | 'hatas' | 'nyersSuly' | 'suly' | 'erosseg';
+
+const RELEVANCE_MAP: Record<string, ColId[]> = {
+  nyersSuly: ['valoszinoseg', 'hatas'],
+  erosseg: ['valoszinoseg', 'suly'],
+  suly: ['nyersSuly'],
+};
+
+type SortState = 'none' | 'asc' | 'desc';
+
+function RiskAssessmentTable() {
+  const [hoveredCol, setHoveredCol] = useState<string | null>(null);
+  const [sortState, setSortState] = useState<SortState>('none');
+
+  const highlightedCols = useMemo(() => {
+    if (!hoveredCol || !RELEVANCE_MAP[hoveredCol]) return new Set<string>();
+    return new Set<string>([hoveredCol, ...RELEVANCE_MAP[hoveredCol]]);
+  }, [hoveredCol]);
+
+  const sortedRows = useMemo(() => {
+    const rows = [...kockazatFelmeres.rows];
+    if (sortState === 'asc') rows.sort((a, b) => a.suly - b.suly);
+    if (sortState === 'desc') rows.sort((a, b) => b.suly - a.suly);
+    return rows;
+  }, [sortState]);
+
+  const cycleSortState = () => {
+    setSortState((prev) => {
+      if (prev === 'none') return 'asc';
+      if (prev === 'asc') return 'desc';
+      return 'none';
+    });
+  };
+
+  const sortIcon = sortState === 'asc' ? '▲' : sortState === 'desc' ? '▼' : '⇅';
+
+  const thClass = (col: ColId, extra?: string) =>
+    `p-3 text-center text-sm font-medium transition-colors duration-200 ${
+      highlightedCols.has(col) ? 'bg-accent-cyan/15 text-accent-cyan' : 'text-text-secondary'
+    } ${extra || ''}`;
+
+  const tdHighlight = (col: ColId) =>
+    highlightedCols.has(col) ? 'bg-accent-cyan/10' : '';
+
+  const formatCurrency = (value: number) =>
+    value.toLocaleString('hu-HU') + ' Ft';
+
+  return (
+    <div className="pt-4">
+      <p className="text-text-secondary text-center mb-6">
+        {kockazatFelmeres.description}
+      </p>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[700px]">
+          <thead>
+            <tr>
+              <th className={thClass('kockazat', 'text-left')}>Kockázat</th>
+              <th
+                className={thClass('valoszinoseg')}
+                onMouseEnter={() => setHoveredCol('valoszinoseg')}
+                onMouseLeave={() => setHoveredCol(null)}
+              >
+                Valószínűség (0–1)
+              </th>
+              <th
+                className={thClass('hatas')}
+                onMouseEnter={() => setHoveredCol('hatas')}
+                onMouseLeave={() => setHoveredCol(null)}
+              >
+                Hatás
+              </th>
+              <th
+                className={thClass('nyersSuly')}
+                onMouseEnter={() => setHoveredCol('nyersSuly')}
+                onMouseLeave={() => setHoveredCol(null)}
+              >
+                Nyers súly
+              </th>
+              <th
+                className={thClass('suly', 'cursor-pointer select-none')}
+                onMouseEnter={() => setHoveredCol('suly')}
+                onMouseLeave={() => setHoveredCol(null)}
+                onClick={cycleSortState}
+              >
+                Súly (0–10) <span className="ml-1">{sortIcon}</span>
+              </th>
+              <th
+                className={thClass('erosseg')}
+                onMouseEnter={() => setHoveredCol('erosseg')}
+                onMouseLeave={() => setHoveredCol(null)}
+              >
+                Kockázat erőssége
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedRows.map((row, i) => {
+              const nyersSuly = row.valoszinoseg * row.hatasErtek;
+              const erosseg = row.valoszinoseg * row.suly;
+              const badgeColor =
+                row.suly >= 7
+                  ? 'bg-secondary-pink/20 text-secondary-pink'
+                  : row.suly >= 3
+                  ? 'bg-orange-100 text-orange-600'
+                  : 'bg-gray-100 text-gray-500';
+
+              return (
+                <tr
+                  key={row.nev}
+                  className={i % 2 === 1 ? 'bg-background-muted/20' : ''}
+                >
+                  <td className={`p-3 text-sm font-medium text-text-primary ${tdHighlight('kockazat')}`}>
+                    {row.nev}
+                  </td>
+                  <td className={`p-3 text-center text-sm ${tdHighlight('valoszinoseg')}`}>
+                    {row.valoszinoseg.toLocaleString('hu-HU')}
+                  </td>
+                  <td className={`p-3 text-center text-sm ${tdHighlight('hatas')}`}>
+                    {row.hatasLabel}
+                  </td>
+                  <td className={`p-3 text-center text-sm ${tdHighlight('nyersSuly')}`}>
+                    {formatCurrency(nyersSuly)}
+                  </td>
+                  <td className={`p-3 text-center text-sm ${tdHighlight('suly')}`}>
+                    <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold ${badgeColor}`}>
+                      {row.suly}
+                    </span>
+                  </td>
+                  <td className={`p-3 text-center text-sm font-semibold ${tdHighlight('erosseg')}`}>
+                    {erosseg.toFixed(2)}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+          <tfoot>
+            <tr className="border-t border-border">
+              <td colSpan={6} className="p-3 text-xs text-text-secondary italic">
+                Nyers súly = Valószínűség × Hatás (Ft) &nbsp;|&nbsp; Kockázat erőssége = Valószínűség × Súly (0–10)
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 export default function Kockazat() {
   return (
     <PageTransition>
@@ -187,11 +335,23 @@ export default function Kockazat() {
           </CollapsibleSection>
         </motion.div>
 
+        {/* Risk assessment table - collapsible section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="mb-16"
+        >
+          <CollapsibleSection title={kockazatFelmeres.title} defaultOpen={false}>
+            <RiskAssessmentTable />
+          </CollapsibleSection>
+        </motion.div>
+
         {/* Risk matrix - collapsible section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
         >
           <CollapsibleSection title={kockazatKezeles.matrix.title} defaultOpen={false}>
             <RiskMatrix />
@@ -202,18 +362,9 @@ export default function Kockazat() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
           className="mt-16 text-center"
         >
-          <div className="inline-block p-8 rounded-lg bg-white border border-border card-shadow">
-            <h3 className="text-xl font-bold text-text-primary mb-4">
-              Kulcs gondolat
-            </h3>
-            <p className="text-text-secondary max-w-md">
-              A kockázatkezelés nem a kockázatok elkerüléséről szól, hanem a
-              tudatos döntéshozatalról és a felkészülésről.
-            </p>
-          </div>
         </motion.div>
       </div>
     </PageTransition>

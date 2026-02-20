@@ -128,8 +128,26 @@ export const kockazatKezeles = {
   ],
   matrix: {
     title: "Eredő kockázatfeltáró mátrix",
-    description: "Az entitások és attribútumok mátrixa segít azonosítani a potenciális kockázati pontokat.",
+    description: "Utak, körök keresése",
   },
+};
+
+export interface KockazatRow {
+  nev: string;
+  valoszinoseg: number;
+  hatasLabel: string;
+  hatasErtek: number;
+  suly: number;
+}
+
+export const kockazatFelmeres = {
+  title: "Kockázatfelmérési táblázat",
+  description: "A kockázatok valószínűsége, hatása és súlya alapján számított kockázaterősség.",
+  rows: [
+    { nev: "X Banda",    valoszinoseg: 0.05, hatasLabel: "1,8m",  hatasErtek: 1800000, suly: 10 },
+    { nev: "X Mikrofon", valoszinoseg: 0.1,  hatasLabel: "40t",   hatasErtek: 40000,   suly: 0  },
+    { nev: "X Hangfal",  valoszinoseg: 0.01, hatasLabel: "300t",  hatasErtek: 300000,  suly: 2  },
+  ] as KockazatRow[],
 };
 
 export const homeContent = {
